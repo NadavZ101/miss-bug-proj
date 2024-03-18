@@ -15,16 +15,17 @@ function query() {
 }
 
 function save(bug) {
+    console.log('bug -> ', bug)
+
     if (bug._id) {
+        console.log('SERVER - Edit')
         const bugIdx = bugs.findIndex(bug => bug._id === bug._id)
         bugs[bugIdx] = bug
     } else {
-        bug._id = utilService.makeId()
-        bug.title = utilService.makeLorem(5)
-        bug.description = utilService.makeLorem(8)
-        bug.severity = utilService.getRandomIntInclusive(1, 5)
-        bug.createdAt = new Date().getTime()
+        console.log('bug -> New Bug ', bug)
 
+        bug._id = utilService.makeId()
+        bug.createdAt = new Date().getTime()
         bugs.unshift(bug)
     }
     return _saveBugsToFile().then(() => bug)
