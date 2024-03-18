@@ -3,9 +3,9 @@ import { bugSrvService } from './services/bug.srv.service.js'
 
 const app = express()
 
-// app.get('/', (req, res) => res.send('Hello Booloon'))
+app.use(express.static('public'))
 
-//Get Bugs (READ)
+// Get Bugs (READ)
 app.get('/api/bug', (req, res) => {
     bugSrvService.query()
         .then(bugs => {
@@ -17,6 +17,7 @@ app.get('/api/bug', (req, res) => {
         })
 })
 
+// Add/Edit Bugs (SAVE)
 app.get('/api/bug/save', (req, res) => {
     const bugToSave = {
         _id: req.query._id,
