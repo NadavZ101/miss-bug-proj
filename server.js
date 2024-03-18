@@ -4,10 +4,11 @@ import { bugSrvService } from './services/bug.srv.service.js'
 const app = express()
 
 app.use(express.static('public')) //bring the index.html of the React App
+// app.use(cookieParser())
 
 // Get Bugs (READ)
 app.get('/api/bug', (req, res) => {
-    console.log('Query');
+    console.log('Query')
     bugSrvService.query()
         .then(bugs => {
             res.send(bugs)
@@ -21,11 +22,12 @@ app.get('/api/bug', (req, res) => {
 // Add/Edit Bugs (SAVE)
 app.get('/api/bug/save', (req, res) => {
     console.log('SAVE')
+    console.log('req.query ', req.query)
     const bugToSave = {
-        _id: req.query._id,
         title: req.query.title,
         severity: +req.query.severity,
         description: req.query.description,
+        _id: req.query.id,
         createdAt: +req.query.createdAt
     }
     //edit not working -> id of bug wont come...
