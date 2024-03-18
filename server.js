@@ -1,10 +1,12 @@
 import express from 'express'
+import cookieParser from 'cookie-parser'
 import { bugSrvService } from './services/bug.srv.service.js'
 
 const app = express()
 
+// Express config:
 app.use(express.static('public')) //bring the index.html of the React App
-// app.use(cookieParser())
+app.use(cookieParser())
 
 // Get Bugs (READ)
 app.get('/api/bug', (req, res) => {
@@ -31,7 +33,7 @@ app.get('/api/bug/save', (req, res) => {
         createdAt: +req.query.createdAt
     }
     //edit not working -> id of bug wont come...
-    console.log(bugToSave)
+    console.log('bugToSave ', bugToSave)
     bugSrvService.save(bugToSave)
         .then(bug => {
             res.send(bug)

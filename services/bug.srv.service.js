@@ -18,11 +18,11 @@ function save(bug) {
     console.log('bug -> ', bug)
 
     if (bug._id) {
-        console.log('SERVER - Edit')
+        console.log('SERVER service - Edit')
         const bugIdx = bugs.findIndex(bug => bug._id === bug._id)
         bugs[bugIdx] = bug
     } else {
-        console.log('bug -> New Bug ', bug)
+        console.log('bug -> New bug ', bug)
 
         bug._id = utilService.makeId()
         bug.createdAt = new Date().getTime()

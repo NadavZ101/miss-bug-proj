@@ -40,10 +40,10 @@ function save(bug) {
     console.log(bug)
     const url = BASE_URL + 'save'
     let queryParams =
-        `?severity=${bug.severity}&description=${bug.description}`
+        `?&title=${bug.title}&severity=${bug.severity}&description=${bug.description}`
 
     if (bug._id) {
-        queryParams += `&id=${bug._id}&title=${bug.title}&createdAt=${bug.createdAt}`
+        queryParams += `&id=${bug._id}&createdAt=${bug.createdAt}`
         console.log('EDIT BUG')
         console.log(queryParams)
     }
