@@ -1,0 +1,30 @@
+[
+    {
+        "_id": "abc123",
+        "title": "Cannot save a new car",
+        "description": "problem when clicking Save",
+        "severity": 3,
+        "createdAt": 1542103625454
+    },
+    {
+        "_id": "1NF1N1T3",
+        "title": "Infinite Loop Detected",
+        "description": "Infinite Loop detected",
+        "severity": 4,
+        "createdAt": 1235307359454
+    },
+    {
+        "_id": "K3YB0RD",
+        "title": "Keyboard Not Found",
+        "description": "problem with finding keyboard",
+        "severity": 3,
+        "createdAt": 1542107359454
+    },
+    {
+        "_id": "G0053",
+        "title": "Unexpected Response",
+        "description": "Unexpected Response",
+        "severity": 1,
+        "createdAt": 1642307355454
+    }
+]
