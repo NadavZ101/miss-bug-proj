@@ -12,8 +12,10 @@ app.use(express.json()) // for req.body (from public server (axios))
 
 // Get Bugs (READ)
 app.get('/api/bug', (req, res) => {
-    console.log('Query')
-    bugSrvService.query()
+    console.log('req.query ', req.query)
+    const filterBy = req.query
+
+    bugSrvService.query(filterBy)
         .then(bugs => {
             res.send(bugs)
         })
@@ -27,6 +29,8 @@ app.get('/api/bug', (req, res) => {
 app.get('/api/bug/:bugId', (req, res) => {
     console.log('get bug -> req.params ', req.params)
     const { bugId } = req.params
+
+    // Cookies - not working...
     // console.log(bugId)
 
     // console.log('req.cookies ', req.cookies)
@@ -50,27 +54,6 @@ app.get('/api/bug/:bugId', (req, res) => {
         })
 
 })
-
-// Add or Edit Bugs (SAVE)
-// app.get('/api/bug/save', (req, res) => {
-//     console.log('SAVE')
-//     console.log('save -> req.query ', req.query)
-//     const bugToSave = {
-//         title: req.query.title,
-//         severity: +req.query.severity,
-//         description: req.query.description,
-//         _id: req.query.id,
-//         createdAt: +req.query.createdAt
-//     }
-//     console.log('bugToSave ', bugToSave)
-//     bugSrvService.save(bugToSave)
-//         .then(bug => {
-//             res.send(bug)
-//         })
-//         .catch((err) => {
-//             res.status(400).sendStatus('Cannot save bug')
-//         })
-// })
 
 // Create Bug
 app.post('/api/bug', (req, res) => {
