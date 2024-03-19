@@ -14,14 +14,14 @@ app.use(express.json()) // for req.body (from public server (axios))
 app.get('/api/bug', (req, res) => {
     console.log('server ---> req.query ', req.query)
 
-    const { txt, severity, title, createdAt } = req.query
-    const filterBy = { txt, severity }
+    const { txt, severity, title, createdAt, pageIdx } = req.query
+    const filterBy = { txt, severity, pageIdx }
     const sortBy = { title, severity, createdAt }
     // const filterBy = req.query
     // console.log(filterBy)
 
-    console.log(filterBy) // Output: { txt: '', severity: '0' }
-    console.log(sortBy)   // Output: { title: '', severity: '0', createdAt: '1' }
+    console.log(filterBy)
+    console.log(sortBy)
 
     bugSrvService.query(filterBy, sortBy)
         .then(bugs => {
@@ -67,8 +67,8 @@ app.get('/api/bug/:bugId', (req, res) => {
 app.post('/api/bug', (req, res) => {
     console.log('post -> req.body ', req.body)
 
-    const carToSave = req.body
-    bugSrvService.save(carToSave)
+    const bugsToCreate = req.body
+    bugSrvService.save(bugsToCreate)
         .then(bug => res.send(bug))
         .catch((err) => {
             res.status(400).send('Cannot save bug')

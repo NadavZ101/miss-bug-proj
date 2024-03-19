@@ -21,8 +21,25 @@ export function BugIndex() {
         bugService.query(filterBy, sortBy).then((bugs) => setBugs(bugs))
     }
 
-    function onSetFilter(filterBy) {
-        setFilterBy((prevFilter) => ({ ...prevFilter, ...filterBy }))
+    function onSetFilter(fieldsToUpdate) {
+        setFilterBy((prevFilter) => {
+            if (prevFilter.pageIdx !== undefined) prevFilter.pageIdx = 0
+            return ({ ...prevFilter, ...fieldsToUpdate })
+        })
+    }
+
+    function onTogglePagination() {
+        setFilterBy(prevFilter => ({
+            ...prevFilter,
+            pageIdx: filterBy.pageIdx === undefined ? 0 : undefined
+        }))
+    }
+
+    function onChangePage(diff) {
+        if (filterBy.pageIdx === undefined) return
+        let nextPageIdx = filterBy.pageIdx + diff
+        if (nextPageIdx < 0) nextPageIdx = 0
+        setFilterBy(prevFilter => ({ ...prevFilter, pageIdx: nextPageIdx }))
     }
 
 
@@ -91,12 +108,19 @@ export function BugIndex() {
             })
     }
 
+
+
     return (
         <main>
             <h3>Bugs App</h3>
             <main>
-                <button className="btn" onClick={() => onChangePage(-1)}>◀︎</button>
-                <button className="btn" onClick={() => onChangePage(1)}>▶︎</button>
+                <section className="pagination">
+                    <button className="btn" onClick={() => onChangePage(-1)}>◀︎</button>
+                    <span>{filterBy.pageIdx + 1 || 'no pagination'}</span>
+                    <button className="btn" onClick={() => onChangePage(1)}>▶︎</button>
+                    <button className="btn" onClick={onTogglePagination}>Toggle Pagination</button>
+
+                </section>
                 <BugFilter onSetFilter={debounceOnSetFilter.current} filterBy={filterBy} />
                 <BugSort onSetSortBy={onSetSortBy} sortBy={sortBy} />
                 <button onClick={onAddBug}>Add Bug ⛐</button>
