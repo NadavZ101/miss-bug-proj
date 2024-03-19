@@ -12,52 +12,83 @@ export const bugService = {
     getById,
     save,
     remove,
+    getFilterDefault
 }
 
 
-function query() {
+function query(filterBy = {}) {
     return axios.get(BASE_URL)
         .then(res => res.data)
+        .then(bugs => {
+            if (filterBy.txt) {
+                const regExp = new RegExp(filterBy.txt, 'i')
+                bugs = bugs.filter(bug => regExp.test(bug.title) || regExp.test(bug.description))
+            }
+            if (filterBy.severity) {
+                bugs = bugs.filter(bug => bug.severity >= filterBy.severity)
+            }
+            return bugs
+        })
         .catch(err => console.log('Cannot get the bugs ', err))
-
-    // return storageService.query(STORAGE_KEY)
 }
 function getById(bugId) {
+    console.log('front service  - getById', bugId)
     return axios.get(BASE_URL + bugId)
         .then(res => res.data)
         .catch(err => console.log('err:', err))
-    // return storageService.get(STORAGE_KEY, bugId)
 }
 
 function remove(bugId) {
-    return axios.get(BASE_URL + bugId + '/remove')
+    return axios.delete(BASE_URL + bugId)
         .then(res => res.data)
         .catch(err => console.log('err: ', err))
-    // return storageService.remove(STORAGE_KEY, bugId)
 }
 
 function save(bug) {
     console.log(bug)
-    const url = BASE_URL + 'save'
-    let queryParams =
-        `?&title=${bug.title}&severity=${bug.severity}&description=${bug.description}`
-
     if (bug._id) {
-        queryParams += `&id=${bug._id}&createdAt=${bug.createdAt}`
-        console.log('EDIT BUG')
-        console.log(queryParams)
+        return axios.put(BASE_URL, bug).then(res => res.data)
+    } else {
+        return axios.post(BASE_URL, bug).then(res => res.data)
     }
-    return axios.get(url + queryParams)
-        .then(res => res.data)
 }
-// function onAddBug() {
-//     const bug = {
-//         title: prompt('Bug title?'),
-//         severity: +prompt('Bug severity?'),
-//         description: prompt('Bug description?'),
+
+// function save(bug) {
+//     console.log(bug)
+//     const url = BASE_URL + 'save'
+
+//     const { title, description, severity } = bug
+//     const queryParams = { title, description, severity }
+
+//     if (bug._id) {
+//         queryParams._id = bug._id
+//         console.log('EDIT BUG')
+//         console.log(queryParams)
 //     }
+//     //params: queryParams -> the data in the server will be in req.query
+//     return axios.get(url, { params: queryParams })
+//         .then(res => res.data)
+// }
+
+// function save(bug) {
+//     console.log('save', bug)
+//     const url = BASE_URL + 'save'
+
+//     let queryParams = `?title=${bug.title}&severity=${bug.severity}&description=${bug.description}`
+
+//     if (bug._id) {
+//         queryParams += `&id=${bug._id}&createdAt=${bug.createdAt}`
+//         console.log('EDIT BUG')
+//         console.log(queryParams)
+//     }
+//     return axios.get(url + queryParams)
+//         .then(res => res.data)
+// }
 
 
+function getFilterDefault() {
+    return ({ txt: '', severity: 0 })
+}
 
 
 function _createBugs() {
@@ -87,7 +118,5 @@ function _createBugs() {
         ]
         utilService.saveToStorage(STORAGE_KEY, bugs)
     }
-
-
 
 }

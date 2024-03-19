@@ -1,17 +1,10 @@
 [
     {
-        "title": "CHIPS",
-        "severity": 1,
-        "description": "aaaa",
-        "_id": "p1m67",
-        "createdAt": 1710786594004
-    },
-    {
-        "title": "undefined",
-        "severity": 1,
-        "description": "QQQQQQ",
-        "_id": "mbWOG",
-        "createdAt": 1710786403529
+        "title": "Paps",
+        "severity": 100,
+        "description": "YeSSS",
+        "_id": "yMeVO",
+        "createdAt": 1710863365487
     },
     {
         "_id": "abc123",
@@ -33,12 +26,5 @@
         "description": "problem with finding keyboard",
         "severity": 3,
         "createdAt": 1542107359454
-    },
-    {
-        "_id": "G0053",
-        "title": "Unexpected Response",
-        "description": "Unexpected Response",
-        "severity": 1,
-        "createdAt": 1642307355454
     }
 ]

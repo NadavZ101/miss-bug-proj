@@ -15,18 +15,19 @@ function query() {
 }
 
 function save(bug) {
-    console.log('bug -> ', bug)
+    console.log('save -> bug -> ', bug)
 
     if (bug._id) {
-        console.log('SERVER service - Edit')
+        console.log('SERVER service - Edit bug')
         const bugIdx = bugs.findIndex(bug => bug._id === bug._id)
         bugs[bugIdx] = bug
     } else {
-        console.log('bug -> New bug ', bug)
 
         bug._id = utilService.makeId()
         bug.createdAt = new Date().getTime()
         bugs.unshift(bug)
+
+        console.log('SERVER service - New bug ', bug)
     }
     return _saveBugsToFile().then(() => bug)
 }
@@ -40,7 +41,7 @@ function getById(bugId) {
 function remove(bugId) {
     console.log(bugId)
     const bugIdx = bugs.findIndex(bug => bug._id === bugId)
-    if (!bugIdx) return Promise.reject('Bug dose not exist!')
+    if (bugIdx === -1) return Promise.reject('Bug dose not exist!')
     bugs.splice(bugIdx, 1)
     return _saveBugsToFile()
 }
