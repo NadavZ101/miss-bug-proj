@@ -12,16 +12,19 @@ export const bugService = {
     getById,
     save,
     remove,
-    getFilterDefault
+    getFilterDefault,
+    getSortDefault
 }
 
 
-function query(filterBy = getFilterDefault()) {
-    console.log(filterBy)
-    return axios.get(BASE_URL, { params: filterBy })
+function query(filterBy = getFilterDefault(), sortBy = getSortDefault()) {
+    console.log('sortBy: ', sortBy)
+    const params = { ...filterBy, ...sortBy }
+    return axios.get(BASE_URL, { params })
         .then(res => res.data)
         .catch(err => console.log('Cannot get the bugs ', err))
 }
+
 function getById(bugId) {
     console.log('front service  - getById', bugId)
     return axios.get(BASE_URL + bugId)
@@ -44,41 +47,13 @@ function save(bug) {
     }
 }
 
-// function save(bug) {
-//     console.log(bug)
-//     const url = BASE_URL + 'save'
-
-//     const { title, description, severity } = bug
-//     const queryParams = { title, description, severity }
-
-//     if (bug._id) {
-//         queryParams._id = bug._id
-//         console.log('EDIT BUG')
-//         console.log(queryParams)
-//     }
-//     //params: queryParams -> the data in the server will be in req.query
-//     return axios.get(url, { params: queryParams })
-//         .then(res => res.data)
-// }
-
-// function save(bug) {
-//     console.log('save', bug)
-//     const url = BASE_URL + 'save'
-
-//     let queryParams = `?title=${bug.title}&severity=${bug.severity}&description=${bug.description}`
-
-//     if (bug._id) {
-//         queryParams += `&id=${bug._id}&createdAt=${bug.createdAt}`
-//         console.log('EDIT BUG')
-//         console.log(queryParams)
-//     }
-//     return axios.get(url + queryParams)
-//         .then(res => res.data)
-// }
-
 
 function getFilterDefault() {
     return ({ txt: '', severity: 0 })
+}
+
+function getSortDefault() {
+    return ({ title: '', severity: 0, createdAt: 0, sortDir: -1 })
 }
 
 

@@ -10,7 +10,10 @@ export const bugSrvService = {
 
 const bugs = utilService.readJsonFile('./data/bugs.json')
 
-function query(filterBy) {
+function query(filterBy, sortBy) {
+    console.log('server-service', filterBy)
+    console.log('server-service', sortBy)
+
     let bugsToReturn = bugs
     console.log(bugsToReturn)
     if (filterBy.txt) {
@@ -20,6 +23,18 @@ function query(filterBy) {
     if (filterBy.severity) {
         bugsToReturn = bugsToReturn.filter(bug => bug.severity >= filterBy.severity)
     }
+
+    if (sortBy.title) {
+        const dir = sortBy.title
+        bugsToReturn.sort((bug1, bug2) => bug2.title.localeCompare(bug1.title) * dir)
+    } else if (sortBy.severity) {
+        const dir = sortBy.severity
+        bugsToReturn.sort((bug1, bug2) => (bug2.severity - bug1.severity) * dir)
+    } else if (sortBy.createdAt) {
+        const dir = sortBy.createdAt
+        bugsToReturn.sort((bug1, bug2) => (bug2.createdAt - bug1.createdAt) * dir)
+    }
+
     return Promise.resolve(bugsToReturn)
 }
 

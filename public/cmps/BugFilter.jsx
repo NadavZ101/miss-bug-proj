@@ -2,11 +2,8 @@
 const { useState, useEffect } = React
 
 export function BugFilter({ onSetFilter, filterBy }) {
-    console.log(filterBy)
 
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
-
-    console.log(filterByToEdit)
 
     useEffect(() => {
         onSetFilter(filterByToEdit)

@@ -12,10 +12,18 @@ app.use(express.json()) // for req.body (from public server (axios))
 
 // Get Bugs (READ)
 app.get('/api/bug', (req, res) => {
-    console.log('req.query ', req.query)
-    const filterBy = req.query
+    console.log('server ---> req.query ', req.query)
 
-    bugSrvService.query(filterBy)
+    const { txt, severity, title, createdAt } = req.query
+    const filterBy = { txt, severity }
+    const sortBy = { title, severity, createdAt }
+    // const filterBy = req.query
+    // console.log(filterBy)
+
+    console.log(filterBy) // Output: { txt: '', severity: '0' }
+    console.log(sortBy)   // Output: { title: '', severity: '0', createdAt: '1' }
+
+    bugSrvService.query(filterBy, sortBy)
         .then(bugs => {
             res.send(bugs)
         })
