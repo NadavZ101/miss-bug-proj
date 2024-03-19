@@ -4,41 +4,71 @@
         "severity": 45,
         "description": "MMM",
         "_id": "j6DEs",
-        "createdAt": 1710876991023
+        "createdAt": 1710876991023,
+        "labels": [
+            "critical",
+            "need-CR",
+            "dev-branch"
+        ]
     },
     {
         "title": "Chips",
         "severity": 250,
         "description": "Yeah!",
         "_id": "lJ8YN",
-        "createdAt": 1710876669534
+        "createdAt": 1710876669534,
+        "labels": [
+            "easy",
+            "need-CR",
+            "dev-main"
+        ]
     },
     {
         "title": "Paps",
         "severity": 100,
         "description": "YeSSS",
         "_id": "yMeVO",
-        "createdAt": 1710863365487
+        "createdAt": 1710863365487,
+        "labels": [
+            "meduim",
+            "need-CR",
+            "dev-master"
+        ]
     },
     {
         "_id": "abc123",
         "title": "Cannot save a new car",
         "description": "problem when clicking Save",
         "severity": 3,
-        "createdAt": 1542103625454
+        "createdAt": 1542103625454,
+        "labels": [
+            "hard-rest",
+            "need-coffee",
+            "dev-tool"
+        ]
     },
     {
         "_id": "1NF1N1T3",
         "title": "Infinite Loop Detected",
         "description": "Infinite Loop detected",
         "severity": 4,
-        "createdAt": 1235307359454
+        "createdAt": 1235307359454,
+        "labels": [
+            "hard-rest",
+            "need-tea",
+            "need-CR"
+        ]
     },
     {
         "_id": "K3YB0RD",
         "title": "Keyboard Not Found",
         "description": "problem with finding keyboard",
         "severity": 3,
-        "createdAt": 1542107359454
+        "createdAt": 1542107359454,
+        "labels": [
+            "light",
+            "need-pizza",
+            "need-VC"
+        ]
     }
 ]
