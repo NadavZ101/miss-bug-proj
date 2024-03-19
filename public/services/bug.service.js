@@ -16,7 +16,6 @@ export const bugService = {
     getSortDefault
 }
 
-
 function query(filterBy = getFilterDefault(), sortBy = getSortDefault()) {
     console.log('sortBy: ', sortBy)
     const params = { ...filterBy, ...sortBy }

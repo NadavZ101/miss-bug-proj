@@ -5,6 +5,7 @@ export const utilService = {
     loadFromStorage,
     saveToStorage,
     debounce,
+    getLabels,
 }
 
 function makeId(length = 6) {
@@ -65,3 +66,30 @@ function throttle(fn, wait) {
         }, wait)
     }
 }
+
+function getLabels(length) {
+    let labels = []
+    for (let i = 0; i < length; ++i) {
+        let labelToAdd = labelsArr[getRandomIntInclusive(0, 14)]
+        labels.push(labelToAdd)
+    }
+    console.log(labels)
+    return labels
+}
+
+const labelsArr = [
+    'critical',
+    'need-CR',
+    'dev-branch',
+    'easy',
+    'dev-main',
+    'meduim',
+    'dev-master',
+    'hard-rest',
+    'need-coffee',
+    'dev-tool',
+    'need-tea',
+    'light',
+    'need-pizza',
+    'need-VC'
+]

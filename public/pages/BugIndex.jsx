@@ -54,7 +54,9 @@ export function BugIndex() {
             title: prompt('Bug title?'),
             severity: +prompt('Bug severity?'),
             description: prompt('Bug description?'),
+            labels: utilService.getLabels(3)
         }
+        console.log(bug)
         bugService
             .save(bug)
             .then((savedBug) => {
@@ -93,6 +95,8 @@ export function BugIndex() {
         <main>
             <h3>Bugs App</h3>
             <main>
+                <button className="btn" onClick={() => onChangePage(-1)}>◀︎</button>
+                <button className="btn" onClick={() => onChangePage(1)}>▶︎</button>
                 <BugFilter onSetFilter={debounceOnSetFilter.current} filterBy={filterBy} />
                 <BugSort onSetSortBy={onSetSortBy} sortBy={sortBy} />
                 <button onClick={onAddBug}>Add Bug ⛐</button>
