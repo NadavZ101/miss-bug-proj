@@ -8,9 +8,14 @@ const users = utilService.readJsonFile('data/users.json') || []
 const cryptr = new Cryptr(process.env.BIG_SECRET || 'secret-boon-nz1984')
 
 export const userSrvService = {
+    query,
     save,
     getLoginToken,
     checkLogin,
+}
+
+function query() {
+    return Promise.resolve(users)
 }
 
 function save(newUser) {
@@ -31,9 +36,6 @@ function getLoginToken(user) {
 }
 
 function checkLogin({ username, password }) {
-    console.log('checkLogin - username', username)
-    console.log('checkLogin - password', password)
-
     var user = users.find(user =>
         user.username === username && user.password === password)
 
@@ -44,9 +46,7 @@ function checkLogin({ username, password }) {
             isAdmin: user.isAdmin
         }
     }
-    console.log(user)
     return Promise.resolve(user)
-
 }
 
 function _saveUsersToFile() {

@@ -1,5 +1,6 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
+import path from 'path'
 import { bugSrvService } from './services/bug.srv.service.js'
 import { userSrvService } from './services/user.srv.service.js'
 
@@ -103,6 +104,16 @@ app.delete('/api/bug/:bugId', (req, res) => {
 
 // User Routes
 
+// User List
+app.get('/api/user', (req, res) => {
+    userSrvService.query()
+        .then((users) => res.send(users))
+        .catch((err) => {
+            console.log('Cannot load users', err)
+            res.status(400).send('Cannot Load users')
+        })
+})
+
 // Login
 app.post('/api/auth/login', (req, res) => {
     const credentials = req.body
@@ -130,7 +141,7 @@ app.post('/api/auth/signup', (req, res) => {
     // Testing 
     const userTry = { username: 'booloon', fullname: 'booloon Z', password: 'boon' }
 
-    userSrvService.save(credentials)
+    userSrvService.save(userTry)
         .then(user => {
             if (user) {
                 const loginToken = userSrvService.getLoginToken(user)
@@ -143,8 +154,11 @@ app.post('/api/auth/signup', (req, res) => {
 
 })
 
-// "username": booloon
-// "password": boon
+// Logout
+app.post('/api/auth/logout', (req, res) => {
+    res.clearCookie('loginToken')
+    res.send('logged Out')
+})
 
 
 //Fallback
