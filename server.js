@@ -38,19 +38,16 @@ app.get('/api/bug/:bugId', (req, res) => {
     console.log('get bug -> req.params ', req.params)
     const { bugId } = req.params
 
-    // Cookies - not working...
-    // console.log(bugId)
+    console.log('req.cookies ', req.cookies)
+    const visitedBugs = req.cookies.visitedBugs || [] // use the default if undefined
+    console.log('visitedBugs - before', visitedBugs)
 
-    // console.log('req.cookies ', req.cookies)
-    // const { visitedBugs = [] } = req.cookies // use the default if undefined
-    // console.log('visitedBugs - before', visitedBugs)
-
-    // if (!visitedBugs.includes(bugId)) {
-    //     if (visitedBugs.length >= 3) return res.status(401).sendStatus('Wait for a bit')
-    //     else visitedBugs.push(bugId)
-    // }
-    // res.cookie('visitedBugs', visitedBugs, { maxAge: 70 * 1000 })
-    // console.log('visitedBugs - after', visitedBugs)
+    if (!visitedBugs.includes(bugId)) {
+        if (visitedBugs.length >= 3) return res.status(401).sendStatus('Wait for a bit')
+        else visitedBugs.push(bugId)
+    }
+    res.cookie('visitedBugs', visitedBugs, { maxAge: 70 * 1000 })
+    console.log('visitedBugs - after', visitedBugs)
 
     bugSrvService.getById(bugId)
         .then(bug => {

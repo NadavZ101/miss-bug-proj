@@ -9,6 +9,12 @@ export function BugFilter({ onSetFilter, filterBy }) {
         onSetFilter(filterByToEdit)
     }, [filterByToEdit])
 
+    const labels = [
+        'critical', 'need-CR', 'dev-branch', 'easy', 'dev-main',
+        'medium', 'dev-master', 'hard-rest', 'need-coffee', 'dev-tool',
+        'need-tea', 'light', 'need-pizza', 'need-VC'
+    ]
+
     function handleInput({ target }) {
         const field = target.name
         const value = target.type === 'number' ? +target.value : target.value
@@ -44,6 +50,23 @@ export function BugFilter({ onSetFilter, filterBy }) {
                 type='number'
                 placeholder="By Severity"
             />
+
+            {/* <div>
+                <label>Labels:</label>
+                {labels.map(label => (
+                    <div key={label}>
+                        <input
+                            type="checkbox"
+                            id={label}
+                            name={label}
+                            checked={filterByToEdit.labels?.includes(label)}
+                            onChange={handleInput}
+                        />
+                        <label htmlFor={label}>{label}</label>
+                    </div>
+                ))}
+            </div> */}
+
             <button>Filter</button>
         </form>
     </section>
