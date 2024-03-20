@@ -43,6 +43,7 @@ export function AppHeader() {
       <section>
         <button onClick={onLogout}>LogOut</button>
       </section>
+      {/* <Link ></Link> */}
       <h1>Bugs are Forever</h1>
     </header>
   )

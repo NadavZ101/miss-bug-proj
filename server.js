@@ -122,7 +122,7 @@ app.post('/api/auth/login', (req, res) => {
     const userTry = { username: 'booloon', password: 'boon' }
 
     //Change to credentials after testing
-    userSrvService.checkLogin(userTry)
+    userSrvService.checkLogin(credentials)
         .then(user => {
             if (user) {
                 const loginToken = userSrvService.getLoginToken(user)
@@ -138,15 +138,15 @@ app.post('/api/auth/login', (req, res) => {
 app.post('/api/auth/signup', (req, res) => {
     const credentials = req.body
 
-    // Testing 
-    const userTry = { username: 'booloon', fullname: 'booloon Z', password: 'boon' }
-
-    userSrvService.save(userTry)
+    userSrvService.save(credentials)
         .then(user => {
             if (user) {
-                const loginToken = userSrvService.getLoginToken(user)
-                res.cookie('loginToken', loginToken)
-                res.send(user)
+                userSrvService.checkLogin(user)
+                    .then(user => {
+                        const loginToken = userSrvService.getLoginToken(user)
+                        res.cookie('loginToken', loginToken)
+                        res.send(user)
+                    })
             } else {
                 res.status(401).send('Invalid Credentials')
             }

@@ -6,21 +6,23 @@
         "password": "boon"
     },
     {
-        "_id": "FNILS",
-        "username": "booloon",
-        "fullname": "booloon Z",
-        "password": "boon"
+        "_id": "fHNYH",
+        "username": "Nadav",
+        "fullname": "NadavZ",
+        "password": "Nz"
     },
     {
-        "_id": "vjIvu",
-        "username": "booloon",
-        "fullname": "booloon Z",
-        "password": "boon"
+        "_id": "0KhL4",
+        "username": "NadavZ",
+        "fullname": "NadavZivyon",
+        "password": "Nz1984",
+        "isAdmin": false
     },
     {
-        "_id": "aQsj6",
-        "username": "booloon",
-        "fullname": "booloon Z",
-        "password": "boon"
+        "_id": "UGGKa",
+        "username": "NadavZ",
+        "fullname": "NAdav",
+        "password": "ZZZ",
+        "isAdmin": false
     }
 ]

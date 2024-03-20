@@ -24,6 +24,7 @@ function save(newUser) {
     user.username = newUser.username
     user.fullname = newUser.fullname
     user.password = newUser.password
+    user.isAdmin = false
 
     users.push(user)
     return _saveUsersToFile().then(() => user)
