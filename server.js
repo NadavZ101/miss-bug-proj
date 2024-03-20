@@ -1,6 +1,7 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import { bugSrvService } from './services/bug.srv.service.js'
+import { userSrvService } from './services/user.srv.service.js'
 
 const app = express()
 
@@ -98,6 +99,57 @@ app.delete('/api/bug/:bugId', (req, res) => {
             res.status(401).send('Cannot remove bug')
         })
 
+})
+
+// User Routes
+
+// Login
+app.post('/api/auth/login', (req, res) => {
+    const credentials = req.body
+
+    // Testing 
+    const userTry = { username: 'booloon', password: 'boon' }
+
+    //Change to credentials after testing
+    userSrvService.checkLogin(userTry)
+        .then(user => {
+            if (user) {
+                const loginToken = userSrvService.getLoginToken(user)
+                res.cookie('loginToken', loginToken)
+                res.send(user)
+            } else {
+                res.status(401).send('Invalid Credentials')
+            }
+        })
+})
+
+// SignUP
+app.post('/api/auth/signup', (req, res) => {
+    const credentials = req.body
+
+    // Testing 
+    const userTry = { username: 'booloon', fullname: 'booloon Z', password: 'boon' }
+
+    userSrvService.save(credentials)
+        .then(user => {
+            if (user) {
+                const loginToken = userSrvService.getLoginToken(user)
+                res.cookie('loginToken', loginToken)
+                res.send(user)
+            } else {
+                res.status(401).send('Invalid Credentials')
+            }
+        })
+
+})
+
+// "username": booloon
+// "password": boon
+
+
+//Fallback
+app.get('/**', (req, res) => {
+    res.sendFile(path.resolve('public/index.html'))
 })
 
 
